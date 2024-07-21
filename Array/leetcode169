@@ -1,6 +1,24 @@
 class Solution {
     public int majorityElement(int[] nums) {
-       Arrays.sort(nums);
-       return nums[nums.length/2];
+        // Arrays.sort(nums);
+        // return nums[nums.length/2];
+
+        // hasmap bhi kar sakte h
+
+        HashMap<Integer, Integer> hm = new HashMap<>();
+
+        int ans = nums.length/2;
+
+        for (int i : nums) {
+            hm.put(i, hm.getOrDefault(i, 0) + 1);
+
+            if (hm.get(i) > ans) {
+                return i;
+            }
+
+        }
+
+        return -1;
     }
+
 }
