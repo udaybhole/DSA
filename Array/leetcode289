@@ -1,0 +1,38 @@
+class Solution {
+    public void gameOfLife(int[][] board) {
+        int n = board.length;
+        int m = board[0].length;
+
+        int temp[][] = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int totallive = live(i - 1, j - 1, board) +
+                        live(i - 1, j, board) + live(i - 1, j + 1, board) + live(i, j - 1, board)
+                        + live(i, j + 1, board)
+                        + live(i + 1, j - 1, board) + live(i + 1, j, board) + live(i + 1, j + 1, board);
+
+                if (board[i][j] == 1) {
+
+                    temp[i][j] = (totallive < 2 || totallive > 3) ? 0 : 1;
+                } else {
+                    temp[i][j] = (totallive == 3) ? 1 : 0;
+                }
+            }
+        }
+
+        for(int r = 0; r <n; r++){
+        board[r] = temp[r].clone();                                              
+    }
+
+    }
+
+    public int live(int i, int j, int board[][]) {
+
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] == 0) {
+            return 0;
+        }
+
+        return 1;
+    }
+}
