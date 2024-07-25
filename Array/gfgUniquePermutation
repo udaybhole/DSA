@@ -1,0 +1,33 @@
+class Solution {
+    static ArrayList<ArrayList<Integer>> uniquePerms(ArrayList<Integer> arr, int n) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        boolean[] vis = new boolean[n];
+        Set<ArrayList<Integer>> s = new HashSet<>();
+        ArrayList<Integer> curr = new ArrayList<>();
+        Collections.sort(arr);
+        check(arr, vis, s, res, curr);
+        return res;
+    }
+    
+    static void check(ArrayList<Integer> arr, boolean[] vis, Set<ArrayList<Integer>> s,
+                      ArrayList<ArrayList<Integer>> res, ArrayList<Integer> curr) {
+        if (curr.size() == arr.size()) {
+            if (!s.contains(curr)) {
+                s.add(new ArrayList<>(curr));
+                res.add(new ArrayList<>(curr));
+            }
+            return;
+        }
+        
+        for (int i = 0; i < arr.size(); i++) {
+            if (vis[i] || (i > 0 && arr.get(i) == arr.get(i - 1) && !vis[i - 1])) {
+                continue;
+            }
+            vis[i] = true;
+            curr.add(arr.get(i));
+            check(arr, vis, s, res, curr);
+            vis[i] = false;
+            curr.remove(curr.size() - 1);
+        }
+    }
+}
