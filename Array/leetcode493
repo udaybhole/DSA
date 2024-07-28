@@ -1,5 +1,12 @@
 class Solution {
 
+
+    //brute force o(n2)
+    //2 loops increment count when we get nums[i] > 2*nums[j]
+    //more optimised way is below using merge sort 
+    //with a simple formula count += j-(mid+1)
+    //that is the number of left elements
+
      private static void merge(int[] arr, int low, int mid, int high) {
         ArrayList<Integer> temp = new ArrayList<>(); 
         int left = low;    
@@ -37,7 +44,7 @@ class Solution {
         int right = mid + 1;
         int cnt = 0;
         for (int i = low; i <= mid; i++) {
-            while (right <= high && arr[i] > 2 * arr[right]) right++;
+            while (right <= high && arr[i] >(long) 2 * arr[right]) right++;
             cnt += (right - (mid + 1));
         }
         return cnt;
@@ -57,6 +64,8 @@ class Solution {
 
 
     public int reversePairs(int[] nums) {
+
+        
 
         return mergeSort(nums,0,nums.length-1);
         
